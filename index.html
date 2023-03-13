@@ -8,7 +8,7 @@
   </head>
   <body>
     <form>
-      <button>Connect with Bluetooth device</button>
+      <button>Connect with Bluetooth Device</button>
     </form>
     <script>
       function isBleAvailable() {
@@ -29,6 +29,7 @@
           .requestDevice(options)
           .then((device) => {
             console.log("Device Name: ", device.name);
+            console.log("Device identify: ", device.id);
           })
           .catch((error) => {
             console.log("Request device error: ", error);
