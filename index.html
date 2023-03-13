@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <button>Connect with Bluetooth device</button>
+    </form>
+    <script>
+      function isBleAvailable() {
+        if (!navigator.bluetooth) {
+          console.log("Web Ble is not available!");
+          return false;
+        }
+        return true;
+      }
+
+      function getDeviceInfo() {
+        let options = {
+          acceptAllDevices: true,
+          optionalServices: ["battery_service"],
+        };
+        console.log("Requesting Ble device info...");
+        navigator.bluetooth
+          .requestDevice(options)
+          .then((device) => {
+            console.log("Device Name: ", device.name);
+          })
+          .catch((error) => {
+            console.log("Request device error: ", error);
+          });
+      }
+
+      document.querySelector("form").addEventListener("submit", (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (isBleAvailable()) {
+          getDeviceInfo();
+        }
+      });
+    </script>
+  </body>
+</html>
